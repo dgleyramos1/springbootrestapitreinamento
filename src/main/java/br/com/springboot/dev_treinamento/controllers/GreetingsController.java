@@ -72,12 +72,21 @@ public class GreetingsController {
 	
 	
 	/*Método GET BY ID, buscar usuário pelo id no banco de dados*/
-	@GetMapping(value = "usuario")
+	@GetMapping(value = "buscarPorId")
 	@ResponseBody
-	public ResponseEntity<Usuario> listarUsuario(@RequestParam(name = "idUSer") Long idUser){
+	public ResponseEntity<Usuario> buscarPorId(@RequestParam(name = "idUSer") Long idUser){
 		Usuario user =  usuarioRepository.findById(idUser).get();
 		return new ResponseEntity<Usuario>(user, HttpStatus.OK);
 	}
+	
+	/*Método GET BY NOME, buscar usuário pelo nome no banco de dados*/
+	@GetMapping(value = "buscarPorNome")
+	@ResponseBody
+	public ResponseEntity<List<Usuario>> buscarPorNome(@RequestParam(name = "name") String name){
+		List<Usuario> user =  usuarioRepository.buscarPorNome(name.trim().toUpperCase());
+		return new ResponseEntity<List<Usuario>>(user, HttpStatus.OK);
+	}
+	
 }
 
 
