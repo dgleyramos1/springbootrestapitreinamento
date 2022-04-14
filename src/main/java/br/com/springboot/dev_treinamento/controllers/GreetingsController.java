@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,12 +39,21 @@ public class GreetingsController {
     }
 	
 	
-	/*Método POSt, salvar usuáiro no banco de dados*/
+	/*Método POST, salvar usuário no banco de dados*/
 	@PostMapping(value = "cadastrar")
 	@ResponseBody
 	public ResponseEntity<Usuario> salvarUsuario(@RequestBody Usuario usuario){
 		Usuario user = usuarioRepository.save(usuario);
 		return new ResponseEntity<Usuario>(user, HttpStatus.CREATED);
+	}
+	
+	
+	/*Método DELETE, deletar usuário do banco de dados*/
+	@PostMapping(value = "delete")
+	@ResponseBody
+	public ResponseEntity<String> delete(@RequestParam Long idUser){
+		usuarioRepository.deleteById(idUser);
+		return new ResponseEntity<String>("Usuário deletato com sucesso!", HttpStatus.OK);
 	}
 }
 
