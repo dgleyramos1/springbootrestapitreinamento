@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,17 +49,36 @@ public class GreetingsController {
 	}
 	
 	
+	/*Método PUT, atualizar usuário no banco de dados*/
+	@PutMapping(value = "atualizar")
+	@ResponseBody
+	public ResponseEntity<?> atualizar(@RequestBody Usuario usuario){
+		
+		if (usuario.getId() == null) {
+			return new ResponseEntity<String>("Id nao informado!", HttpStatus.NOT_FOUND);
+		}
+		Usuario user = usuarioRepository.saveAndFlush(usuario);
+		return new ResponseEntity<Usuario>(user, HttpStatus.OK);
+	}
+	
+	
 	/*Método DELETE, deletar usuário do banco de dados*/
 	@PostMapping(value = "delete")
 	@ResponseBody
-	public ResponseEntity<String> delete(@RequestParam Long idUser){
+	public ResponseEntity<String> delete(@RequestParam(name = "idUSer") Long idUser){
 		usuarioRepository.deleteById(idUser);
 		return new ResponseEntity<String>("Usuário deletato com sucesso!", HttpStatus.OK);
 	}
+	
+	
+	/*Método GET BY ID, buscar usuário pelo id no banco de dados*/
+	@GetMapping(value = "usuario")
+	@ResponseBody
+	public ResponseEntity<Usuario> listarUsuario(@RequestParam(name = "idUSer") Long idUser){
+		Usuario user =  usuarioRepository.findById(idUser).get();
+		return new ResponseEntity<Usuario>(user, HttpStatus.OK);
+	}
 }
-
-
-
 
 
 
