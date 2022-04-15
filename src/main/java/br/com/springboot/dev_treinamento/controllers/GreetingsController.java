@@ -86,7 +86,6 @@ public class GreetingsController {
 	}
 	
 	/*Método GET BY NOME, buscar usuário pelo nome no banco de dados*/
-	
 	@GetMapping(value = "/buscarPorNome")
 	@ResponseBody
 	public ResponseEntity<List<Usuario>> buscarPorNome(@RequestParam(name = "name") String name){
