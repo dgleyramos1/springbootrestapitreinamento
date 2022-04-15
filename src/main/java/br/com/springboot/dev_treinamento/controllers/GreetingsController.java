@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,14 +27,17 @@ import br.com.springboot.dev_treinamento.repository.UsuarioRepository;
 @RestController
 public class GreetingsController {
 	
-	@Autowired /*IC - ICD - Injeção de dependencia*/
-	private UsuarioRepository usuarioRepository;
 	
+	private final UsuarioRepository usuarioRepository;
 	
-	
-	
+	@Autowired /*IC/CD ou CDI - Injeção de dependencia*/
+	public GreetingsController(UsuarioRepository usuarioRepository) {
+		this.usuarioRepository = usuarioRepository;
+	}
+
+
 	/*Método GET, para listar todos os usuários*/
-	@GetMapping(value = "usuarios")
+	@GetMapping(value = "/usuarios")
 	@ResponseBody /* Retorna os dados para o corpo da resposta*/
     public ResponseEntity<List<Usuario>> listarUsuarios(){
 		
@@ -41,7 +47,7 @@ public class GreetingsController {
 	
 	
 	/*Método POST, salvar usuário no banco de dados*/
-	@PostMapping(value = "cadastrar")
+	@PostMapping(value = "/cadastrar")
 	@ResponseBody
 	public ResponseEntity<Usuario> salvarUsuario(@RequestBody Usuario usuario){
 		Usuario user = usuarioRepository.save(usuario);
@@ -50,7 +56,7 @@ public class GreetingsController {
 	
 	
 	/*Método PUT, atualizar usuário no banco de dados*/
-	@PutMapping(value = "atualizar")
+	@PutMapping(value = "/atualizar")
 	@ResponseBody
 	public ResponseEntity<?> atualizar(@RequestBody Usuario usuario){
 		
@@ -63,7 +69,7 @@ public class GreetingsController {
 	
 	
 	/*Método DELETE, deletar usuário do banco de dados*/
-	@PostMapping(value = "delete")
+	@DeleteMapping(value = "/delete")
 	@ResponseBody
 	public ResponseEntity<String> delete(@RequestParam(name = "idUSer") Long idUser){
 		usuarioRepository.deleteById(idUser);
@@ -72,7 +78,7 @@ public class GreetingsController {
 	
 	
 	/*Método GET BY ID, buscar usuário pelo id no banco de dados*/
-	@GetMapping(value = "buscarPorId")
+	@GetMapping(value = "/buscarPorId")
 	@ResponseBody
 	public ResponseEntity<Usuario> buscarPorId(@RequestParam(name = "idUSer") Long idUser){
 		Usuario user =  usuarioRepository.findById(idUser).get();
@@ -80,12 +86,14 @@ public class GreetingsController {
 	}
 	
 	/*Método GET BY NOME, buscar usuário pelo nome no banco de dados*/
-	@GetMapping(value = "buscarPorNome")
+	/**
+	@GetMapping(value = "/buscarPorNome")
 	@ResponseBody
 	public ResponseEntity<List<Usuario>> buscarPorNome(@RequestParam(name = "name") String name){
 		List<Usuario> user =  usuarioRepository.buscarPorNome(name.trim().toUpperCase());
 		return new ResponseEntity<List<Usuario>>(user, HttpStatus.OK);
 	}
+	*/
 	
 }
 
