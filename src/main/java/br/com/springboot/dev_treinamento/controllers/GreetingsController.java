@@ -47,7 +47,7 @@ public class GreetingsController {
 	
 	
 	/*Método POST, salvar usuário no banco de dados*/
-	@PostMapping(value = "/cadastrar")
+	@PostMapping(value = "/salvar")
 	@ResponseBody
 	public ResponseEntity<Usuario> salvarUsuario(@RequestBody Usuario usuario){
 		Usuario user = usuarioRepository.save(usuario);
@@ -86,14 +86,14 @@ public class GreetingsController {
 	}
 	
 	/*Método GET BY NOME, buscar usuário pelo nome no banco de dados*/
-	/**
+	
 	@GetMapping(value = "/buscarPorNome")
 	@ResponseBody
 	public ResponseEntity<List<Usuario>> buscarPorNome(@RequestParam(name = "name") String name){
 		List<Usuario> user =  usuarioRepository.buscarPorNome(name.trim().toUpperCase());
 		return new ResponseEntity<List<Usuario>>(user, HttpStatus.OK);
 	}
-	*/
+	
 	
 }
 
