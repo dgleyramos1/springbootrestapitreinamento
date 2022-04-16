@@ -27,9 +27,9 @@ Aplicação para cadastro de usuários
 
 #### Preview
 
-![Tela Principal](src\main\resources\img\tela-principal.png)
+![Tela Principal](./src/main/resources/img/tela-principal.png)
 
-![Tela de Pesquisa](src\main\resources\img\tela-de-pesquisa.png)
+![Tela de Pesquisa](./src/main/resources/img/tela-de-pesquisa.png)
 
 
 
