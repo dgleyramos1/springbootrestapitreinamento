@@ -71,7 +71,7 @@ public class GreetingsController {
 	/*Método DELETE, deletar usuário do banco de dados*/
 	@DeleteMapping(value = "/delete")
 	@ResponseBody
-	public ResponseEntity<String> delete(@RequestParam(name = "idUSer") Long idUser){
+	public ResponseEntity<String> delete(@RequestParam(name = "idUser") Long idUser){
 		usuarioRepository.deleteById(idUser);
 		return new ResponseEntity<String>("Usuário deletato com sucesso!", HttpStatus.OK);
 	}
@@ -80,7 +80,7 @@ public class GreetingsController {
 	/*Método GET BY ID, buscar usuário pelo id no banco de dados*/
 	@GetMapping(value = "/buscarPorId")
 	@ResponseBody
-	public ResponseEntity<Usuario> buscarPorId(@RequestParam(name = "idUSer") Long idUser){
+	public ResponseEntity<Usuario> buscarPorId(@RequestParam(name = "idUser") Long idUser){
 		Usuario user =  usuarioRepository.findById(idUser).get();
 		return new ResponseEntity<Usuario>(user, HttpStatus.OK);
 	}
